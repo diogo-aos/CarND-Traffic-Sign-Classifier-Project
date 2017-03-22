@@ -4,3 +4,8 @@ data
 models
 *.swp
 *.p
+*.data*
+*.index
+*.meta
+DN*/
+*lenet*/
