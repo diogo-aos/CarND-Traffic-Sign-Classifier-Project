@@ -1,4 +1,4 @@
-# **Traffic Sign Recognition** 
+# **Traffic Sign Recognition**
 
 **Build a Traffic Sign Recognition Project**
 
@@ -45,7 +45,7 @@ The code for this step is contained in the **code cells 4 and 5** of the IPython
 
 Here is an exploratory visualization of the data set. It is a bar chart showing how the data is distributed over the 43 classes.
 
-![alt text][train_hist.png]
+![alt text](train_hist.png)
 
 It's clear that there is a high class imbalance, where the number of some classes is well above the expected average per class (dotted black line) and others are well below.
 
@@ -58,6 +58,8 @@ I also plotted a bunch of images from the training set. The images are quite sma
 The code for this step is contained in the **code cells 6 and 7** of the IPython notebook.
 
 As a first step, I just normalized the data and continued on playing with the model. Later on I tried adding a grayscale layer to the input but this actually lowered the validation accuracy.
+
+Ialso tried to use Contrast-limited Adaptive Histogram Equalization from OpenCV. I applied it to the luminance channel (after converting from RGB to a different channel scheme - I converted back to RGB after applying CLAHE). Many images seemed more clear to me than before but the  the model's performance did not increase. I was able to reduce the model size, though (different model than the one presented here).
 
 
 #### 2. Describe how, and identify where in your code, you set up training, validation and testing data. How much data was in each set? Explain what techniques were used to split the data into these sets. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, identify where in your code, and provide example images of the additional data)
@@ -78,9 +80,9 @@ After flattening, I used a rather wide fully connected layer, followed by a ReLU
 My final model consisted of the following layers:
 
 
-| Layer         		|     Description	        					| 
-|:---------------------:|:---------------------------------------------:| 
-| Input         		| 32x32x3 RGB image   							| 
+| Layer         		|     Description	        					|
+|:---------------------:|:---------------------------------------------:|
+| Input         		| 32x32x3 RGB image   							|
 | Convolution 5x5     	| 1x1 stride, VALID padding, outputs 28x28x6 	|
 | RELU					|												|
 | Convolution 5x5     	| 1x1 stride, VALID padding, outputs 24x24x12 	|
@@ -112,11 +114,11 @@ My final model consisted of the following layers:
 | Fully connected		|	43											|
 | Softmax				| etc.        									|
 |						|												|
- 
+
 
 #### 4. Describe how, and identify where in your code, you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
-The code for training the model is located in the **code cells 12, 13 and 15** of the ipython notebook. 
+The code for training the model is located in the **code cells 12, 13 and 15** of the ipython notebook.
 
 To train the model, I used an ADAM optimizer and the cross entropy as a loss function. I usually trained with 30 epochs, as I found it was enough to see the network converging. I tried several dropout and learning rates depending on how fast the model was converging or when it got stuck somewhere, but in the end I chose a learning rate of 0.001 and a dropout of 0.5.
 
@@ -191,7 +193,9 @@ The code for making predictions on my final model is located in the **code cell 
 Original images are on the 1st column, with a label descibing if they were well classified or not. The remaining rows are a random image from the train dataset corresponding to the class predicted. The label is how "certain the model was" for each prediction.
 
 
-The model was able to correctly guess 6 of the 7 traffic signs, which gives an accuracy of 75%.
+The model was able to correctly guess 6 of the 8 traffic signs, which gives an accuracy of 75%. This is lower than the test set accuracy, but in order for this comparison to be statistically significant I'd have to collect many more images from the internet.
+
+It's worth noting that I tested these images with 2 other models and the results were similar (the highest being 80% accuracy but with worse test set accuracy).
 
 ####3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction and identify where in your code softmax probabilities were outputted. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
